@@ -10,8 +10,7 @@ public class FileService {
      */
     public String readText(String pathFileSource) {
         try {
-            Path path = Path.of(pathFileSource);
-            return Files.readString(path);
+            return Files.readString(Path.of(pathFileSource));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -24,8 +23,7 @@ public class FileService {
      */
     public void writeText(String pathFileDestination, String textForWriting) {
         try {
-            Path path = Path.of(pathFileDestination);
-            Files.writeString(path, textForWriting);
+            Files.writeString(Path.of(pathFileDestination), textForWriting);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1,7 +1,4 @@
 package validators;
-
-import constants.Constants;
-
 public class ClientsChoiceValidator {
     /**
      * @param usersChoice - String value from user to check
@@ -12,17 +9,11 @@ public class ClientsChoiceValidator {
      * lastMenuNumber the method return false.
      */
     public boolean isValid(String usersChoice, int firstMenuNumber, int lastMenuNumber) {
-        int intChoice;
         try {
-            intChoice = Integer.parseInt(usersChoice);
+            int intChoice = Integer.parseInt(usersChoice);
+            return (intChoice >= firstMenuNumber && intChoice <= lastMenuNumber);
         } catch (Exception e) {
-            System.out.println(Constants.NOT_NUMBER);
             return false;
         }
-        if (intChoice < firstMenuNumber || intChoice > lastMenuNumber) {
-            System.out.println(Constants.INVALID_NUMBER);
-            return false;
-        }
-        return true;
     }
 }

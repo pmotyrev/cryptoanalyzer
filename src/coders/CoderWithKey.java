@@ -1,11 +1,15 @@
-package services;
+package coders;
 
 import constants.Constants;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CoderWithKey {
     protected final String originText;
     protected boolean isEncrypt;
     protected int key;
+    private static final Map<Character, Integer> MAP_ALPHABET = convert();
+
 
     public CoderWithKey(String originText, int key, boolean isEncrypt) {
         this.originText = originText;
@@ -15,6 +19,14 @@ public class CoderWithKey {
 
     public CoderWithKey(String originText) {
         this.originText = originText;
+    }
+
+    private static Map<Character, Integer> convert() {
+        Map<Character, Integer> mapAlphabet = new HashMap<>();
+        for (int i = 0; i < Constants.ALPHABET.length; i++) {
+            mapAlphabet.put(Constants.ALPHABET[i], i);
+        }
+        return mapAlphabet;
     }
 
     /**
@@ -32,8 +44,8 @@ public class CoderWithKey {
         }
 
         for (int i = 0; i < originText.length(); i++) {
-            if (Constants.MAP_ALPHABET.get(originText.charAt(i)) != null) {
-                oldPosition = Constants.MAP_ALPHABET.get(originText.charAt(i));
+            if (MAP_ALPHABET.get(originText.charAt(i)) != null) {
+                oldPosition = MAP_ALPHABET.get(originText.charAt(i));
                 sb.append(Constants.ALPHABET[getPositionInAlphabet(oldPosition)]);
             } else {
                 sb.append(originText.charAt(i));
@@ -57,4 +69,5 @@ public class CoderWithKey {
             return oldPosition + key;
         }
     }
+
 }

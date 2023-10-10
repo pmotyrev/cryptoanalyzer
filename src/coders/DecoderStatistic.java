@@ -1,11 +1,25 @@
-package services;
+package coders;
 
 import constants.Constants;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
 public class DecoderStatistic extends CoderWithKey {
+    public static final String CANT_DECRYPT = "Sorry, but I can't decrypt this file. Try another option";
+    public static final Map<String, Double> EXAMPLE_STATISTIC_WORDS_MAP = new HashMap<>() {{
+        put("и", 0.2);
+        put("не", 0.1);
+        put("что", 0.07);
+        put("он", 0.07);
+    }};
+    public static final Map<String, Double> MAP_STATISTIC_WORDS = new HashMap<>() {{
+        put("и", 0.0);
+        put("не", 0.0);
+        put("что", 0.0);
+        put("он", 0.0);
+    }};
     public DecoderStatistic(String originText) {
         super(originText, 0, true);
     }
@@ -24,9 +38,9 @@ public class DecoderStatistic extends CoderWithKey {
         while (true) {
             String decryptionText = this.cryption();
             countStatisticInDescriptionText(decryptionText);
-            for (Map.Entry<String, Double> statisticsWordsEntries : Constants.COUNTING_STATISTIC_WORDS_MAP.entrySet()) {
+            for (Map.Entry<String, Double> statisticsWordsEntries : MAP_STATISTIC_WORDS.entrySet()) {
                 if (statisticsWordsEntries.getValue() >=
-                        Constants.EXAMPLE_STATISTIC_WORDS_MAP.get(statisticsWordsEntries.getKey())) {
+                        EXAMPLE_STATISTIC_WORDS_MAP.get(statisticsWordsEntries.getKey())) {
                     counter++;
                 }
             }
@@ -45,12 +59,12 @@ public class DecoderStatistic extends CoderWithKey {
      */
     private void prepareValueForNextIteration() {
         key++;
-        Constants.COUNTING_STATISTIC_WORDS_MAP.put("и", 0.0);
-        Constants.COUNTING_STATISTIC_WORDS_MAP.put("не", 0.0);
-        Constants.COUNTING_STATISTIC_WORDS_MAP.put("что", 0.0);
-        Constants.COUNTING_STATISTIC_WORDS_MAP.put("он", 0.0);
+        MAP_STATISTIC_WORDS.put("и", 0.0);
+        MAP_STATISTIC_WORDS.put("не", 0.0);
+        MAP_STATISTIC_WORDS.put("что", 0.0);
+        MAP_STATISTIC_WORDS.put("он", 0.0);
         if (key >= Constants.ALPHABET.length) {
-            System.out.println(Constants.CANT_DECRYPT);
+            System.out.println(CANT_DECRYPT);
             System.exit(0);
         }
     }
@@ -63,9 +77,9 @@ public class DecoderStatistic extends CoderWithKey {
         StringTokenizer stringTokenizer = new StringTokenizer(decryptionText, " .,!?:-'/\\\"«»`", false);
         while (stringTokenizer.hasMoreTokens()) {
             String token = stringTokenizer.nextToken();
-            if (Constants.COUNTING_STATISTIC_WORDS_MAP.containsKey(token)) {
-                double value = Constants.COUNTING_STATISTIC_WORDS_MAP.get(token) + 1;
-                Constants.COUNTING_STATISTIC_WORDS_MAP.put(token, value);
+            if (MAP_STATISTIC_WORDS.containsKey(token)) {
+                double value = MAP_STATISTIC_WORDS.get(token) + 1;
+                MAP_STATISTIC_WORDS.put(token, value);
             }
         }
     }

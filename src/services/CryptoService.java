@@ -1,6 +1,8 @@
 package services;
 
-import constants.Constants;
+import coders.CoderWithKey;
+import coders.DecoderBruteForce;
+import coders.DecoderStatistic;
 import validators.FileValidator;
 import validators.KeyValidator;
 import validators.PathValidator;
@@ -63,7 +65,6 @@ public class CryptoService {
 
     private void writeResultToFile(String result) {
         new FileService().writeText(pathResult, result);
-        System.out.println(Constants.SUCCESS);
     }
 
 

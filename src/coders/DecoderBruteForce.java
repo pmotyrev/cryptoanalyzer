@@ -1,4 +1,4 @@
-package services;
+package coders;
 
 public class DecoderBruteForce extends CoderWithKey {
     private int validAmountGaps;
