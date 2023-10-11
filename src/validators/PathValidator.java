@@ -7,7 +7,7 @@ import java.util.Set;
 public class PathValidator {
     private static final String[] forbiddenDirectories = {"bash_history", "bash_logout", "bash_profile", "bashrc",
             "gtkrc", "login", "logout", "profile", "viminfo", "wm_style", "Xdefaults", "Xresources", "xinitrc",
-            "xsession", "dev", "etc", "proc", "var", "bin", "boot", "home", "lib", "mnt", "proc", "root", "sbin",
+            "xsession", "dev", "etc", "proc", "var", "bin", "boot", "home", "lib", "mnt", "root", "sbin",
             "tmp", "usr", "var"};
     private static final Set<String> setForbiddenDirectories = new HashSet<>(Arrays.asList(forbiddenDirectories));
     private static final String regex = "/|\\\\";

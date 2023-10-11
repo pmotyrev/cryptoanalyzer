@@ -5,11 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CoderWithKey {
-    protected final String originText;
-    protected boolean isEncrypt;
+    private final String originText;
+    private final boolean isEncrypt;
     protected int key;
-    private static final Map<Character, Integer> MAP_ALPHABET = convert();
-
+    private static final Map<Character, Integer> MAP_ALPHABET = convertToMap();
 
     public CoderWithKey(String originText, int key, boolean isEncrypt) {
         this.originText = originText;
@@ -17,16 +16,16 @@ public class CoderWithKey {
         this.isEncrypt = isEncrypt;
     }
 
-    public CoderWithKey(String originText) {
-        this.originText = originText;
+    private static Map<Character, Integer> convertToMap() {
+        Map<Character, Integer> mapChars = new HashMap<>();
+        for (int i = 0; i < Constants.ALPHABET.length; i++) {
+            mapChars.put(Constants.ALPHABET[i], i);
+        }
+        return mapChars;
     }
 
-    private static Map<Character, Integer> convert() {
-        Map<Character, Integer> mapAlphabet = new HashMap<>();
-        for (int i = 0; i < Constants.ALPHABET.length; i++) {
-            mapAlphabet.put(Constants.ALPHABET[i], i);
-        }
-        return mapAlphabet;
+    public String decryption() {
+        return cryption();
     }
 
     /**
@@ -37,7 +36,6 @@ public class CoderWithKey {
      */
     public String cryption() {
         StringBuilder sb = new StringBuilder();
-        int oldPosition;
 
         if (!isEncrypt) {
             key = -key;
@@ -45,14 +43,12 @@ public class CoderWithKey {
 
         for (int i = 0; i < originText.length(); i++) {
             if (MAP_ALPHABET.get(originText.charAt(i)) != null) {
-                oldPosition = MAP_ALPHABET.get(originText.charAt(i));
-                sb.append(Constants.ALPHABET[getPositionInAlphabet(oldPosition)]);
+                int oldPosition = MAP_ALPHABET.get(originText.charAt(i));
+                sb.append(Constants.ALPHABET[getCryptionLetter(oldPosition)]);
             } else {
                 sb.append(originText.charAt(i));
             }
-
         }
-
         return sb.toString();
     }
 
@@ -60,7 +56,7 @@ public class CoderWithKey {
      * @param oldPosition - number of the old position
      * @return int number with new position of character.
      */
-    private int getPositionInAlphabet(int oldPosition) {
+    private int getCryptionLetter(int oldPosition) {
         if (oldPosition + key < 0) {
             return oldPosition + key + Constants.ALPHABET.length;
         } else if (oldPosition + key >= Constants.ALPHABET.length) {
@@ -69,5 +65,4 @@ public class CoderWithKey {
             return oldPosition + key;
         }
     }
-
 }

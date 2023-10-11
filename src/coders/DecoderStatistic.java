@@ -20,8 +20,9 @@ public class DecoderStatistic extends CoderWithKey {
         put("что", 0.0);
         put("он", 0.0);
     }};
-    public DecoderStatistic(String originText) {
-        super(originText, 0, true);
+
+    public DecoderStatistic(String originText, int key, boolean isEncrypt) {
+        super(originText, key, isEncrypt);
     }
 
     /**
@@ -33,11 +34,10 @@ public class DecoderStatistic extends CoderWithKey {
      *  "он" frequency of use 0.07
      */
     public String decryption() {
-        int counter = 0;
-
         while (true) {
-            String decryptionText = this.cryption();
-            countStatisticInDescriptionText(decryptionText);
+            int counter = 0;
+            String decryptionText = cryption();
+            countWordsStatistic(decryptionText);
             for (Map.Entry<String, Double> statisticsWordsEntries : MAP_STATISTIC_WORDS.entrySet()) {
                 if (statisticsWordsEntries.getValue() >=
                         EXAMPLE_STATISTIC_WORDS_MAP.get(statisticsWordsEntries.getKey())) {
@@ -47,8 +47,7 @@ public class DecoderStatistic extends CoderWithKey {
             if (counter >= 4) {
                 return decryptionText;
             }
-            counter = 0;
-            prepareValueForNextIteration();
+            prepareValuesForNextIteration();
         }
     }
 
@@ -57,7 +56,7 @@ public class DecoderStatistic extends CoderWithKey {
      * if key >= Constants.ALPHABET.length stop decryption and show CANT_DECRYPT massage
      * resets the statistics of found words in the text
      */
-    private void prepareValueForNextIteration() {
+    private void prepareValuesForNextIteration() {
         key++;
         MAP_STATISTIC_WORDS.put("и", 0.0);
         MAP_STATISTIC_WORDS.put("не", 0.0);
@@ -73,7 +72,7 @@ public class DecoderStatistic extends CoderWithKey {
      * @param decryptionText
      * Counts the number of words ["и", "не", "что", "он"] found in the text decryptionText
      */
-    private void countStatisticInDescriptionText(String decryptionText) {
+    private void countWordsStatistic(String decryptionText) {
         StringTokenizer stringTokenizer = new StringTokenizer(decryptionText, " .,!?:-'/\\\"«»`", false);
         while (stringTokenizer.hasMoreTokens()) {
             String token = stringTokenizer.nextToken();

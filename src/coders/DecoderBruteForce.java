@@ -4,8 +4,8 @@ public class DecoderBruteForce extends CoderWithKey {
     private int validAmountGaps;
     private int invalidAmountGaps;
 
-    public DecoderBruteForce(String originText) {
-        super(originText, 0, true);
+    public DecoderBruteForce(String originText, int key, boolean isEncrypt) {
+        super(originText, key, isEncrypt);
     }
 
     /**
@@ -13,11 +13,10 @@ public class DecoderBruteForce extends CoderWithKey {
      * Count amount of gapes after characters'.', ',', '?', '!', '-' , ':'
      * if amount of gapes more than 66,66% the file is considered decrypted
      */
+    @Override
     public String decryption() {
-        String decryptionText;
-
         while (true) {
-            decryptionText = this.cryption();
+            String decryptionText = cryption();
             round(decryptionText);
             if (validAmountGaps > invalidAmountGaps * 2) {
                 return decryptionText;
@@ -47,5 +46,4 @@ public class DecoderBruteForce extends CoderWithKey {
             }
         }
     }
-
 }

@@ -21,12 +21,11 @@ public class ConsoleService {
             4 enter to: hack encrypted file using statistics \uD83D\uDE0E \uD83D\uDE0E \uD83D\uDE0E
             0 enter to: EXIT""";
     private static final String INVALID_NUMBER_MASSAGE = "You entered invalid number. Please try again.";
-
     private static final String INVALID_PATH_MASSAGE = "This path is invalid. Please enter valid file's path";
     private static final String FORBIDDEN_PATH_MASSAGE = "This path is FORBIDDEN. Please enter another file's path";
     private static final String INVALID_KEY_MASSAGE = "You entered invalid key. Please try again";
     private static final String SUCCESS_MASSAGE = "Cryprion is success \uD83D\uDE0E";
-    private static final String ASKED_KEY = "Please enter the key from 1 to" + (Constants.ALPHABET.length-1);
+    private static final String ASKED_KEY = "Please enter the key from 1 to " + (Constants.ALPHABET.length-1);
     private static final String ASKED_SOURCE_FILE_PATH = "Please enter the path for source file";
     private static final String ASKED_RESULT_FILE_PATH = "Please enter the path for result file";
     private static final int FIRST_WELCOME_MENU_NUMBER = 0;
